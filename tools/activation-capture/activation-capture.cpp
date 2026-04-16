@@ -140,7 +140,7 @@ static bool cb_eval(struct ggml_tensor * t, bool ask, void * user_data) {
     if (dash) il = atoi(dash + 1);
     if (il < 0) return true;
 
-    if (t->type != GGML_TYPE_F32) return true;
+    //if (t->type != GGML_TYPE_F32) return true;
 
     int ne     = (int)t->ne[0];
     int n_tok  = (int)t->ne[1];
