@@ -125,7 +125,7 @@ static bool cb_eval(struct ggml_tensor * t, bool ask, void * user_data) {
 
     printf("tensor %s\n", t->name);
 
-    const bool is_l_out = strncmp(t->name, "ffn_swiglu", 10) == 0: // || strncmp(t->name, "attn_post_norm", 14) == 0;
+    const bool is_l_out = strncmp(t->name, "ffn_swiglu", 10) == 0; // || strncmp(t->name, "attn_post_norm", 14) == 0;
 
     if (ask) {
         printf("ask\n");
