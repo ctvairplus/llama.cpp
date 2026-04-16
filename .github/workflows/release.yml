@@ -69,7 +69,7 @@ jobs:
             -D CMAKE_TOOLCHAIN_FILE=cmake/${{ matrix.arch }}-windows-llvm.cmake ^
             -DLLAMA_BUILD_BORINGSSL=ON ^
             -DGGML_NATIVE=OFF ^
-            -DGGML_BACKEND_DL=ON ^
+            -DGGML_BACKEND_DL=OFF ^
             -DGGML_CPU_ALL_VARIANTS=${{ matrix.arch == 'x64' && 'ON' || 'OFF' }} ^
             -DGGML_OPENMP=ON ^
             ${{ env.CMAKE_ARGS }}
@@ -229,10 +229,6 @@ jobs:
             echo "Moving $zip_file to release/$zip_name"
             mv "$zip_file" "release/$zip_name"
           done
-
-          echo "Moving other artifacts..."
-          mv -v artifact/*.zip release
-          mv -v artifact/*.tar.gz release
 
       - name: Create release
         id: create_release
