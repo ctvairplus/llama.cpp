@@ -70,7 +70,6 @@ jobs:
             -DLLAMA_BUILD_BORINGSSL=ON ^
             -DGGML_NATIVE=OFF ^
             -DGGML_BACKEND_DL=OFF ^
-            -DGGML_CPU_ALL_VARIANTS=${{ matrix.arch == 'x64' && 'ON' || 'OFF' }} ^
             -DGGML_OPENMP=ON ^
             ${{ env.CMAKE_ARGS }}
           cmake --build build --config Release
