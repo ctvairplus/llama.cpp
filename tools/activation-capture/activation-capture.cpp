@@ -123,21 +123,28 @@ struct capture_data {
 static bool cb_eval(struct ggml_tensor * t, bool ask, void * user_data) {
     auto * cap = (capture_data *)user_data;
 
+    printf("tensor %s\n", t->name);
+
     const bool is_l_out = strncmp(t->name, "ffn_down", 8) == 0;
 
     if (ask) {
+        printf("ask\n");
         if (!is_l_out) return false;
+        printf("ask 2\n");
         int il = -1;
         const char * dash = strchr(t->name, '-');
         if (dash) il = atoi(dash + 1);
         return il >= 0 && cap->should_capture(il);
     }
 
+    printf("l_out\n");
+
     if (!is_l_out) return true;
 
     int il = -1;
     const char * dash = strchr(t->name, '-');
     if (dash) il = atoi(dash + 1);
+    printf("il\n");
     if (il < 0) return true;
 
     //if (t->type != GGML_TYPE_F32) return true;
@@ -149,7 +156,11 @@ static bool cb_eval(struct ggml_tensor * t, bool ask, void * user_data) {
     std::vector<float> buf(ne * n_tok);
     ggml_backend_tensor_get(t, buf.data(), 0, n_bytes);
 
+    printf("store\n");
+
     cap->store(il, buf.data(), ne, n_tok);
+
+    printf("return\n");
 
     return true;
 }
